@@ -1,0 +1,89 @@
+basePath: /
+definitions:
+  models.GetAllFileInfoRes:
+    properties:
+      count:
+        type: integer
+      data:
+        items: {}
+        type: array
+    type: object
+  models.SuccessInfo:
+    properties:
+      message:
+        type: string
+    type: object
+host: localhost:8000
+info:
+  contact: {}
+  description: Here QA can test and frontend or mobile developers can get information
+    of API endpoints
+  title: Makves Test Project API endpoints
+  version: "1.0"
+paths:
+  /:
+    get:
+      description: Just to ensure that server is running
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.SuccessInfo'
+      summary: Ping pong
+      tags:
+      - Ping
+  /get-all:
+    get:
+      consumes:
+      - application/json
+      description: Used to get all informations.
+      parameters:
+      - description: limit
+        in: query
+        name: limit
+        required: true
+        type: integer
+      - description: page
+        in: query
+        name: page
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.GetAllFileInfoRes'
+      summary: Get All
+      tags:
+      - File
+  /get-by-id/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Used to get information by id.
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.GetAllFileInfoRes'
+      summary: Get by id
+      tags:
+      - File
+securityDefinitions:
+  BearerAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
